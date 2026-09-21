@@ -1,0 +1,47 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<h1>{{ task.title }}</h1>
+
+<p>{{ task.description }}</p>
+
+<p><strong>Status:</strong> {{ task.status }}</p>
+<p><strong>Priority:</strong> {{ task.priority }}</p>
+<p><strong>Category:</strong> {{ task.category }}</p>
+<p><strong>Deadline:</strong> {{ task.deadline }}</p>
+
+<h2>SubTasks</h2>
+
+{% for subtask in task.subtask_set.all %}
+
+<div class="task">
+    <strong>{{ subtask.title }}</strong>
+    <p>Status: {{ subtask.status }}</p>
+</div>
+
+{% empty %}
+
+<p>No subtasks available.</p>
+
+{% endfor %}
+
+<h2>Notes</h2>
+
+{% for note in task.note_set.all %}
+
+<div class="task">
+    <p>{{ note.content }}</p>
+</div>
+
+{% empty %}
+
+<p>No notes available.</p>
+
+{% endfor %}
+
+<p>
+    <a href="{% url 'task-list' %}">← Back to Tasks</a>
+</p>
+
+{% endblock %}

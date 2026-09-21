@@ -1,0 +1,28 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<h1>
+    {% if object %}
+        Update Task
+    {% else %}
+        Create Task
+    {% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        {% if object %}
+        Update Task
+        {% else %}
+        Create Task
+        {% endif %}
+    </button>
+    <a href="{% url 'task-list' %}">Cancel</a>
+</form>
+
+{% endblock %}

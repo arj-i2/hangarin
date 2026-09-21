@@ -1,0 +1,42 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<h1>My Tasks</h1>
+
+<p>
+    <a href="{% url 'task-create' %}">+ Create Task</a>
+</p>
+
+{% for task in tasks %}
+
+<div class="task">
+    <h2>
+        <a href="{% url 'task-detail' task.pk %}">
+            {{ task.title }}
+        </a>
+    </h2>
+
+    <p>{{ task.description }}</p>
+
+    <p><strong>Status:</strong> {{ task.status }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+    <p><strong>Category:</strong> {{ task.category }}</p>
+    <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+
+    <p>
+        <a href="{% url 'task-update' task.pk %}">Edit Task</a>
+    </p>
+
+    <p>
+        <a href="{% url 'task-delete' task.pk %}">Delete Task</a>
+    </p>
+</div>
+
+{% empty %}
+
+<p>No tasks available.</p>
+
+{% endfor %}
+
+{% endblock %}
