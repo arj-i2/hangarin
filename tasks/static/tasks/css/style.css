@@ -10,8 +10,6 @@ body {
     color: #222;
 }
 
-/* SIDEBAR */
-
 .layout {
     display: flex;
     min-height: 100vh;
@@ -51,8 +49,6 @@ body {
     padding-left: 22px;
 }
 
-/* MAIN LAYOUT */
-
 .main {
     margin-left: 230px;
     width: calc(100% - 230px);
@@ -75,6 +71,7 @@ body {
 }
 
 .create-button {
+    display: inline-block;
     background: #222;
     color: white;
     text-decoration: none;
@@ -94,8 +91,6 @@ body {
     margin: 30px auto;
     padding: 0 25px;
 }
-
-/* SEARCH BAR */
 
 .search-box {
     margin-bottom: 25px;
@@ -134,8 +129,6 @@ body {
 .search-box button:hover {
     background: #444;
 }
-
-/* TASK LIST */
 
 .task-list {
     display: flex;
@@ -219,8 +212,6 @@ body {
     border: 1px solid #e1e1e1;
 }
 
-/* TASK BADGES */
-
 .badge {
     display: inline-block;
     padding: 6px 12px;
@@ -252,8 +243,6 @@ body {
     font-size: 14px;
     color: #555;
 }
-
-/* TASK DETAIL PAGE */
 
 .detail-page {
     display: flex;
@@ -371,13 +360,20 @@ body {
 .section-heading {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .section-heading h2 {
     margin: 0;
     font-size: 21px;
+}
+
+.section-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .section-count {
@@ -389,25 +385,47 @@ body {
 }
 
 .subtask-item {
-    padding: 15px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 14px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subtask-item:last-child {
+    margin-bottom: 0;
 }
 
 .subtask-item:hover {
-    background: #f8f8f8;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.subtask-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .subtask-item h3 {
     font-size: 16px;
     margin: 0 0 8px;
+    overflow-wrap: anywhere;
 }
 
 .subtask-status {
     font-size: 13px;
     color: #666;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .note-item {
@@ -430,8 +448,6 @@ body {
     color: #888;
     padding: 10px 0;
 }
-
-/* CREATE AND EDIT FORMS */
 
 .form-page {
     max-width: 800px;
@@ -555,8 +571,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* DELETE CONFIRMATION PAGE */
-
 .delete-page {
     max-width: 650px;
     margin: 40px auto;
@@ -650,8 +664,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* RESPONSIVE DESIGN */
-
 @media (max-width: 700px) {
     .sidebar {
         width: 180px;
@@ -690,6 +702,27 @@ body {
 
     .delete-card {
         padding: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .section-heading-actions {
+        flex-wrap: wrap;
+    }
+
+    .subtask-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .subtask-actions {
+        width: 100%;
+        flex-wrap: wrap;
     }
 }
 

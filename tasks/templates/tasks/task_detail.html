@@ -1,3 +1,4 @@
+
 {% extends "tasks/base.html" %}
 
 {% block title %}{{ task.title }} - Hangarin{% endblock %}
@@ -24,6 +25,7 @@
         </div>
     </div>
 
+    <!-- Task Information -->
     <div class="detail-card">
 
         <div class="detail-heading">
@@ -54,40 +56,72 @@
 
     </div>
 
+    <!-- Subtasks Section -->
     <div class="section-card">
 
         <div class="section-heading">
             <h2>Subtasks</h2>
-            <span class="section-count">
-                {{ task.subtask_set.count }}
-            </span>
+
+            <div class="section-heading-actions">
+
+                <span class="section-count">
+                    {{ task.subtask_set.count }}
+                </span>
+
+                <a href="{% url 'subtask-create' task.pk %}"
+                   class="create-button">
+                    + Add Subtask
+                </a>
+
+            </div>
         </div>
 
         {% for subtask in task.subtask_set.all %}
 
         <div class="subtask-item">
-            <div>
+
+            <div class="subtask-info">
+
                 <h3>{{ subtask.title }}</h3>
+
                 <span class="subtask-status">
                     {{ subtask.status }}
                 </span>
+
             </div>
+
+            <div class="subtask-actions">
+
+                <a href="{% url 'subtask-update' subtask.pk %}"
+                   class="edit-button">
+                    Edit
+                </a>
+
+                <a href="{% url 'subtask-delete' subtask.pk %}"
+                   class="delete-button">
+                    Delete
+                </a>
+
+            </div>
+
         </div>
 
         {% empty %}
 
         <p class="empty-message">
-            No subtasks yet.
+            No subtasks yet. Click "+ Add Subtask" to create one.
         </p>
 
         {% endfor %}
 
     </div>
 
+    <!-- Notes Section -->
     <div class="section-card">
 
         <div class="section-heading">
             <h2>Notes</h2>
+
             <span class="section-count">
                 {{ task.note_set.count }}
             </span>
@@ -96,8 +130,13 @@
         {% for note in task.note_set.all %}
 
         <div class="note-item">
+
             <p>{{ note.content }}</p>
-            <small>{{ note.created_at|date:"M d, Y" }}</small>
+
+            <small>
+                {{ note.created_at|date:"M d, Y" }}
+            </small>
+
         </div>
 
         {% empty %}

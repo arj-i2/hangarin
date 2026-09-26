@@ -1,0 +1,39 @@
+
+{% extends "tasks/base.html" %}
+
+{% block title %}Manage Subtask | Hangarin{% endblock %}
+
+{% block header %}Manage Subtask{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-heading">
+        <h1>Subtask Details</h1>
+        <p>Create or update a subtask.</p>
+    </div>
+
+    <div class="form-card">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="form-actions">
+                <a href="javascript:history.back()" class="form-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit" class="form-submit">
+                    Save Subtask
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+
+{% extends "tasks/base.html" %}
+
+{% block title %}Delete Subtask | Hangarin{% endblock %}
+
+{% block header %}Delete Subtask{% endblock %}
+
+{% block content %}
+
+<div class="delete-page">
+    <div class="delete-card">
+
+        <div class="delete-icon">!</div>
+
+        <h1>Delete Subtask</h1>
+
+        <p class="delete-message">
+            Are you sure you want to delete
+            <strong>{{ object.title }}</strong>?
+        </p>
+
+        <p class="delete-warning">
+            This action cannot be undone.
+        </p>
+
+        <form method="post" class="delete-actions">
+            {% csrf_token %}
+
+            <a href="{% url 'task-detail' object.parent_task_id %}"
+               class="form-cancel">
+                Cancel
+            </a>
+
+            <button type="submit" class="delete-confirm">
+                Yes, Delete
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
