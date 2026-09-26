@@ -2,7 +2,7 @@ from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Task, SubTask
+from .models import Task, SubTask, Note
 
 
 class TaskListView(ListView):
@@ -83,4 +83,49 @@ class SubTaskDeleteView(DeleteView):
         return reverse(
             "task-detail",
             kwargs={"pk": self.object.parent_task_id}
+        )
+
+class NoteCreateView(CreateView):
+    model = Note
+    template_name = "tasks/note_form.html"
+    fields = ["content"]
+
+    def dispatch(self, request, *args, **kwargs):
+        self.task = get_object_or_404(
+            Task,
+            pk=kwargs["task_pk"]
+        )
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.task = self.task
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "task-detail",
+            kwargs={"pk": self.task.pk}
+        )
+
+
+class NoteUpdateView(UpdateView):
+    model = Note
+    template_name = "tasks/note_form.html"
+    fields = ["content"]
+
+    def get_success_url(self):
+        return reverse(
+            "task-detail",
+            kwargs={"pk": self.object.task_id}
+        )
+
+
+class NoteDeleteView(DeleteView):
+    model = Note
+    template_name = "tasks/note_confirm_delete.html"
+
+    def get_success_url(self):
+        return reverse(
+            "task-detail",
+            kwargs={"pk": self.object.task_id}
         )

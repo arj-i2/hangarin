@@ -1,0 +1,58 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Note - Hangarin{% endblock %}
+
+{% block header %}
+    {% if object %}Edit Note{% else %}Add Note{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-heading">
+        <h1>
+            {% if object %}
+                Edit Note
+            {% else %}
+                Add Note
+            {% endif %}
+        </h1>
+
+        <p>Write or update your task note below.</p>
+    </div>
+
+    <div class="form-card">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}">
+                    Note Content
+                </label>
+
+                {{ form.content }}
+                {{ form.content.errors }}
+            </div>
+
+            <div class="form-actions">
+
+                <a href="{% if object %}{% url 'task-detail' object.task_id %}{% else %}{% url 'task-detail' view.task.pk %}{% endif %}"
+                   class="form-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit" class="form-submit">
+                    Save Note
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

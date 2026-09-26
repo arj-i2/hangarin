@@ -8,6 +8,9 @@ from .views import (
     SubTaskCreateView,
     SubTaskUpdateView,
     SubTaskDeleteView,
+    NoteCreateView,
+    NoteUpdateView,
+    NoteDeleteView,
 )
     
 
@@ -21,4 +24,8 @@ urlpatterns = [
     path("task/<int:task_pk>/subtask/create/", SubTaskCreateView.as_view(), name="subtask-create"),
     path("subtask/<int:pk>/edit/", SubTaskUpdateView.as_view(), name="subtask-update"),
     path("subtask/<int:pk>/delete/", SubTaskDeleteView.as_view(), name="subtask-delete"),
+
+    path("task/<int:task_pk>/note/create/", NoteCreateView.as_view(), name="note-create"),
+    path("note/<int:pk>/edit/", NoteUpdateView.as_view(), name="note-update"),
+    path("note/<int:pk>/delete/", NoteDeleteView.as_view(), name="note-delete"),
 ]

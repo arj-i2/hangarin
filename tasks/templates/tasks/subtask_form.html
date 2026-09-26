@@ -1,7 +1,6 @@
-
 {% extends "tasks/base.html" %}
 
-{% block title %}Manage Subtask | Hangarin{% endblock %}
+{% block title %}Subtask - Hangarin{% endblock %}
 
 {% block header %}Manage Subtask{% endblock %}
 
@@ -10,7 +9,14 @@
 <div class="form-page">
 
     <div class="form-heading">
-        <h1>Subtask Details</h1>
+        <h1>
+            {% if object %}
+                Edit Subtask
+            {% else %}
+                Subtask Details
+            {% endif %}
+        </h1>
+
         <p>Create or update a subtask.</p>
     </div>
 
@@ -19,17 +25,37 @@
         <form method="post">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">
+                    Title
+                </label>
+
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.status.id_for_label }}">
+                    Status
+                </label>
+
+                {{ form.status }}
+                {{ form.status.errors }}
+            </div>
 
             <div class="form-actions">
-                <a href="javascript:history.back()" class="form-cancel">
+
+                <a href="{% if object %}{% url 'task-detail' object.parent_task_id %}{% else %}{% url 'task-detail' view.task.pk %}{% endif %}"
+                   class="form-cancel">
                     Cancel
                 </a>
 
                 <button type="submit" class="form-submit">
                     Save Subtask
                 </button>
+
             </div>
+
         </form>
 
     </div>

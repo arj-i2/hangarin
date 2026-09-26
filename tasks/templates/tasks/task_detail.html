@@ -1,4 +1,3 @@
-
 {% extends "tasks/base.html" %}
 
 {% block title %}{{ task.title }} - Hangarin{% endblock %}
@@ -30,7 +29,6 @@
 
         <div class="detail-heading">
             <h1>{{ task.title }}</h1>
-
             <p>{{ task.description }}</p>
         </div>
 
@@ -63,7 +61,6 @@
             <h2>Subtasks</h2>
 
             <div class="section-heading-actions">
-
                 <span class="section-count">
                     {{ task.subtask_set.count }}
                 </span>
@@ -72,45 +69,40 @@
                    class="create-button">
                     + Add Subtask
                 </a>
-
             </div>
         </div>
 
         {% for subtask in task.subtask_set.all %}
 
-        <div class="subtask-item">
+            <div class="subtask-item">
 
-            <div class="subtask-info">
+                <div class="subtask-info">
+                    <h3>{{ subtask.title }}</h3>
 
-                <h3>{{ subtask.title }}</h3>
+                    <span class="subtask-status">
+                        {{ subtask.status }}
+                    </span>
+                </div>
 
-                <span class="subtask-status">
-                    {{ subtask.status }}
-                </span>
+                <div class="subtask-actions">
+                    <a href="{% url 'subtask-update' subtask.pk %}"
+                       class="edit-button">
+                        Edit
+                    </a>
 
-            </div>
-
-            <div class="subtask-actions">
-
-                <a href="{% url 'subtask-update' subtask.pk %}"
-                   class="edit-button">
-                    Edit
-                </a>
-
-                <a href="{% url 'subtask-delete' subtask.pk %}"
-                   class="delete-button">
-                    Delete
-                </a>
+                    <a href="{% url 'subtask-delete' subtask.pk %}"
+                       class="delete-button">
+                        Delete
+                    </a>
+                </div>
 
             </div>
-
-        </div>
 
         {% empty %}
 
-        <p class="empty-message">
-            No subtasks yet. Click "+ Add Subtask" to create one.
-        </p>
+            <p class="empty-message">
+                No subtasks yet. Click "+ Add Subtask" to create one.
+            </p>
 
         {% endfor %}
 
@@ -122,28 +114,49 @@
         <div class="section-heading">
             <h2>Notes</h2>
 
-            <span class="section-count">
-                {{ task.note_set.count }}
-            </span>
+            <div class="section-heading-actions">
+                <span class="section-count">
+                    {{ task.note_set.count }}
+                </span>
+
+                <a href="{% url 'note-create' task.pk %}"
+                   class="create-button">
+                    + Add Note
+                </a>
+            </div>
         </div>
 
         {% for note in task.note_set.all %}
 
-        <div class="note-item">
+            <div class="note-item">
 
-            <p>{{ note.content }}</p>
+                <div class="note-content">
+                    <p>{{ note.content|linebreaksbr }}</p>
 
-            <small>
-                {{ note.created_at|date:"M d, Y" }}
-            </small>
+                    <small>
+                        Created: {{ note.created_at|date:"M d, Y g:i A" }}
+                    </small>
+                </div>
 
-        </div>
+                <div class="note-actions">
+                    <a href="{% url 'note-update' note.pk %}"
+                       class="edit-button">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'note-delete' note.pk %}"
+                       class="delete-button">
+                        Delete
+                    </a>
+                </div>
+
+            </div>
 
         {% empty %}
 
-        <p class="empty-message">
-            No notes yet.
-        </p>
+            <p class="empty-message">
+                No notes yet. Click "+ Add Note" to create one.
+            </p>
 
         {% endfor %}
 
