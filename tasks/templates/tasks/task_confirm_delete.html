@@ -1,16 +1,44 @@
+
 {% extends "tasks/base.html" %}
+
+{% block title %}Delete Task | Hangarin{% endblock %}
+{% block header %}Delete Task{% endblock %}
 
 {% block content %}
 
-<h1>Delete Task</h1>
+<div class="delete-page">
 
-<p>Are you sure you want to delete "{{ object.title }}"?</p>
+    <div class="delete-card">
 
-<form method="post">
-    {% csrf_token %}
+        <div class="delete-icon">!</div>
 
-    <button type="submit">Yes, Delete</button>
-    <a href="{% url 'task-detail' object.pk %}">Cancel</a>
-</form>
+        <h1>Delete Task</h1>
+
+        <p class="delete-message">
+            Are you sure you want to delete
+            <strong>"{{ object.title }}"</strong>?
+        </p>
+
+        <p class="delete-warning">
+            This action cannot be undone. The task and its associated
+            subtasks and notes will also be deleted.
+        </p>
+
+        <form method="post" class="delete-actions">
+            {% csrf_token %}
+
+            <a href="{% url 'task-detail' object.pk %}"
+               class="form-cancel">
+                Cancel
+            </a>
+
+            <button type="submit" class="delete-confirm">
+                Yes, Delete Task
+            </button>
+        </form>
+
+    </div>
+
+</div>
 
 {% endblock %}

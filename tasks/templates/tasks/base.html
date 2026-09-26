@@ -1,63 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangarin</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f5f5f5;
-        }
+    <title>{% block title %}Hangarin{% endblock %}</title>
 
-        nav {
-            background: #222;
-            padding: 15px 30px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .task {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-        }
-
-        .task a {
-            text-decoration: none;
-            color: #222;
-        }
-
-        .task h2 {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
 </head>
 
 <body>
 
-    <nav>
-        <a href="{% url 'task-list' %}">Hangarin</a>
-    </nav>
+<div class="layout">
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <aside class="sidebar">
+        <div class="logo">Hangarin</div>
+
+        <a href="{% url 'task-list' %}">Dashboard</a>
+        <a href="{% url 'task-list' %}">Tasks</a>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <h2>{% block header %}My Tasks{% endblock %}</h2>
+
+            <a href="{% url 'task-create' %}" class="create-button">
+                + Create Task
+            </a>
+        </header>
+
+        <section class="content">
+
+            <div class="search-box">
+                <form method="get">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search tasks..."
+                        value="{{ request.GET.search|default:'' }}"
+                    >
+
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+    </main>
+
+</div>
 
 </body>
 </html>

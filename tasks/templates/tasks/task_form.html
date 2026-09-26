@@ -1,28 +1,82 @@
 {% extends "tasks/base.html" %}
 
+{% block title %}
+    {% if object %}Edit Task{% else %}Create Task{% endif %} - Hangarin
+{% endblock %}
+
+{% block header %}
+    {% if object %}Edit Task{% else %}Create Task{% endif %}
+{% endblock %}
+
 {% block content %}
 
-<h1>
-    {% if object %}
-        Update Task
-    {% else %}
-        Create Task
-    {% endif %}
-</h1>
+<div class="form-page">
 
-<form method="post">
-    {% csrf_token %}
+    <div class="form-heading">
+        <h1>
+            {% if object %}
+                Edit Task
+            {% else %}
+                Create a New Task
+            {% endif %}
+        </h1>
 
-    {{ form.as_p }}
+        <p>
+            {% if object %}
+                Update your task details below.
+            {% else %}
+                Organize your work by filling in the task details.
+            {% endif %}
+        </p>
+    </div>
 
-    <button type="submit">
-        {% if object %}
-        Update Task
-        {% else %}
-        Create Task
-        {% endif %}
-    </button>
-    <a href="{% url 'task-list' %}">Cancel</a>
-</form>
+    <div class="form-card">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+
+            <div class="form-group">
+
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <p class="form-error">{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+            {% endfor %}
+
+            <div class="form-actions">
+
+                <a href="{% url 'task-list' %}" class="form-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit" class="form-submit">
+                    {% if object %}
+                        Save Changes
+                    {% else %}
+                        Create Task
+                    {% endif %}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 {% endblock %}

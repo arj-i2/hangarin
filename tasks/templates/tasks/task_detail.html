@@ -1,47 +1,115 @@
 {% extends "tasks/base.html" %}
 
+{% block title %}{{ task.title }} - Hangarin{% endblock %}
+
+{% block header %}Task Details{% endblock %}
+
 {% block content %}
 
-<h1>{{ task.title }}</h1>
+<div class="detail-page">
 
-<p>{{ task.description }}</p>
+    <div class="detail-top">
+        <a href="{% url 'task-list' %}" class="back-link">
+            ← Back to Tasks
+        </a>
 
-<p><strong>Status:</strong> {{ task.status }}</p>
-<p><strong>Priority:</strong> {{ task.priority }}</p>
-<p><strong>Category:</strong> {{ task.category }}</p>
-<p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <div class="detail-actions">
+            <a href="{% url 'task-update' task.pk %}" class="edit-button">
+                Edit Task
+            </a>
 
-<h2>SubTasks</h2>
+            <a href="{% url 'task-delete' task.pk %}" class="delete-button">
+                Delete
+            </a>
+        </div>
+    </div>
 
-{% for subtask in task.subtask_set.all %}
+    <div class="detail-card">
 
-<div class="task">
-    <strong>{{ subtask.title }}</strong>
-    <p>Status: {{ subtask.status }}</p>
+        <div class="detail-heading">
+            <h1>{{ task.title }}</h1>
+
+            <p>{{ task.description }}</p>
+        </div>
+
+        <div class="detail-badges">
+            <span class="badge status-badge">
+                {{ task.status }}
+            </span>
+
+            <span class="badge priority-badge">
+                {{ task.priority.name|title }}
+            </span>
+
+            <span class="category">
+                {{ task.category }}
+            </span>
+        </div>
+
+        <div class="detail-deadline">
+            <span class="detail-label">Deadline</span>
+            <p>{{ task.deadline|date:"F d, Y" }}</p>
+            <small>{{ task.deadline|date:"g:i A" }}</small>
+        </div>
+
+    </div>
+
+    <div class="section-card">
+
+        <div class="section-heading">
+            <h2>Subtasks</h2>
+            <span class="section-count">
+                {{ task.subtask_set.count }}
+            </span>
+        </div>
+
+        {% for subtask in task.subtask_set.all %}
+
+        <div class="subtask-item">
+            <div>
+                <h3>{{ subtask.title }}</h3>
+                <span class="subtask-status">
+                    {{ subtask.status }}
+                </span>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <p class="empty-message">
+            No subtasks yet.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="section-card">
+
+        <div class="section-heading">
+            <h2>Notes</h2>
+            <span class="section-count">
+                {{ task.note_set.count }}
+            </span>
+        </div>
+
+        {% for note in task.note_set.all %}
+
+        <div class="note-item">
+            <p>{{ note.content }}</p>
+            <small>{{ note.created_at|date:"M d, Y" }}</small>
+        </div>
+
+        {% empty %}
+
+        <p class="empty-message">
+            No notes yet.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
 </div>
-
-{% empty %}
-
-<p>No subtasks available.</p>
-
-{% endfor %}
-
-<h2>Notes</h2>
-
-{% for note in task.note_set.all %}
-
-<div class="task">
-    <p>{{ note.content }}</p>
-</div>
-
-{% empty %}
-
-<p>No notes available.</p>
-
-{% endfor %}
-
-<p>
-    <a href="{% url 'task-list' %}">← Back to Tasks</a>
-</p>
 
 {% endblock %}
