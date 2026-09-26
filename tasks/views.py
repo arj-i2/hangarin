@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.db.models import Q
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Task
 
@@ -9,6 +10,18 @@ class TaskListView(ListView):
     context_object_name = "tasks"
     ordering = ["deadline"]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        search_query = self.request.GET.get("search", "")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query)
+            )
+
+        return queryset
 
 class TaskDetailView(DetailView):
     model = Task
