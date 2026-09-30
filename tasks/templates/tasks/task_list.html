@@ -29,17 +29,22 @@
         <div class="task-info">
 
             {% if task.status == "Pending" %}
-                <span class="status-badge status-pending">
+                <span class="status status-pending">
                     {{ task.status }}
                 </span>
 
             {% elif task.status == "In Progress" %}
-                <span class="status-badge status-progress">
+                <span class="status status-progress">
                     {{ task.status }}
                 </span>
 
             {% elif task.status == "Completed" %}
-                <span class="status-badge status-completed">
+                <span class="status status-completed">
+                    {{ task.status }}
+                </span>
+
+            {% else %}
+                <span class="status">
                     {{ task.status }}
                 </span>
             {% endif %}
