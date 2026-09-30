@@ -1226,7 +1226,8 @@ button {
     font-size: 15px;
 }
 
-.google-login {
+.google-login,
+.github-login {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1241,17 +1242,65 @@ button {
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.google-login:hover {
+.google-login:hover,
+.github-login:hover {
     background: #444;
     color: white;
     transform: translateY(-2px);
 }
 
-.google-icon {
-    font-size: 18px;
+.github-login {
+    margin-top: 12px;
+}
+
+.google-icon,
+.github-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
     font-weight: bold;
+}
+
+.google-circle {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    color: #4285f4;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.login-card form {
+    width: 100%;
+}
+
+.login-card form .google-login {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.back-login {
+    display: inline-block;
+    margin-top: 20px;
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-login:hover {
+    color: #222;
 }
 
 /* Profile Dropdown */
@@ -1323,6 +1372,7 @@ button {
 /* Login Mobile */
 
 @media (max-width: 500px) {
+
     .login-card {
         width: auto;
         padding: 35px 25px;
@@ -1343,106 +1393,3 @@ button {
         white-space: nowrap;
     }
 }
-
-.login-page {
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f4f6f8;
-}
-
-.login-card {
-    width: 400px;
-    max-width: calc(100% - 40px);
-    padding: 45px 40px;
-    background: white;
-    border: 1px solid #e1e1e1;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.login-logo {
-    color: #222;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.login-card h1 {
-    margin: 0 0 10px;
-    font-size: 26px;
-    color: #222;
-}
-
-.login-subtitle {
-    margin: 0 0 30px;
-    color: #777;
-    font-size: 15px;
-}
-
-.google-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 13px 20px;
-    background: #222;
-    color: white;
-    border: 1px solid #222;
-    border-radius: 7px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.google-login:hover {
-    background: #444;
-    color: white;
-}
-
-.google-icon {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.google-circle {
-    width: 55px;
-    height: 55px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f4f6f8;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    color: #4285f4;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.login-card form {
-    width: 100%;
-}
-
-.login-card form .google-login {
-    font-family: inherit;
-    cursor: pointer;
-}
-
-.back-login {
-    display: inline-block;
-    margin-top: 20px;
-    color: #777;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.back-login:hover {
-    color: #222;
-}
-
