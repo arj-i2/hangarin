@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Task, SubTask, Note
 from django.views.generic import TemplateView
 from django.utils import timezone
+from django import forms
 
 
 class TaskListView(ListView):
@@ -37,12 +38,26 @@ class TaskCreateView(CreateView):
     fields = "__all__"
     success_url = reverse_lazy("task-list")
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["deadline"].widget = forms.DateInput(
+            attrs={"type": "date"}
+        )
+        return form
+
 class TaskUpdateView(UpdateView):
     model = Task
     template_name = "tasks/task_form.html"
     fields = "__all__"
     success_url = reverse_lazy("task-list")
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["deadline"].widget = forms.DateInput(
+            attrs={"type": "date"}
+        )
+        return form
+    
 class TaskDeleteView(DeleteView):
     model = Task
     template_name = "tasks/task_confirm_delete.html"
@@ -160,7 +175,7 @@ class DashboardView(TemplateView):
         )[:5]
 
         context["upcoming_tasks"] = tasks.filter(
-            deadline__date__gte=today
+            deadline__gte=today
         ).exclude(
             status="Completed"
         ).order_by("deadline")[:5]

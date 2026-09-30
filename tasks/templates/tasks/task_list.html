@@ -6,7 +6,10 @@
 
 {% block content %}
 
-<h1>My Tasks</h1>
+<div class="task-list-header">
+    <h1>My Tasks</h1>
+    <a href="{% url 'task-create' %}" class="create-task-button">+ Create Task</a>
+</div>
 
 <div class="task-list">
 

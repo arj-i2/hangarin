@@ -1393,3 +1393,31 @@ button {
         white-space: nowrap;
     }
 }
+
+.task-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.task-list-header h1 {
+    margin: 0;
+}
+
+.create-task-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #222;
+    color: white;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.create-task-button:hover {
+    background: #444;
+    color: white;
+    transform: translateY(-2px);
+}
