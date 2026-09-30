@@ -28,11 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'arji2.pythonanywhere.com',
+    'arjan1.pythonanywhere.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://arji2.pythonanywhere.com',
+    'https://arjan1.pythonanywhere.com',
 ]
 
 # Application definition
