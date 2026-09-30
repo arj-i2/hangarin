@@ -16,64 +16,101 @@ button {
                 border-color 0.2s ease,
                 transform 0.2s ease;
 }
+
 input,
 textarea,
 select {
     font-family: inherit;
 }
 
-a,
-button {
-    transition: background 0.2s ease, color 0.2s ease,
-                border-color 0.2s ease, transform 0.2s ease;
-}
 
 /* Main Layout */
 
 .layout {
-    display: flex;
     min-height: 100vh;
+    padding-top: 65px;
 }
 
-.sidebar {
-    width: 230px;
-    flex-shrink: 0;
-    background: #222;
-    color: white;
-    padding: 25px 15px;
+.site-header {
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
-    overflow-y: auto;
+    width: 100%;
+    height: 65px;
+    background: white;
+    border-bottom: 1px solid #e1e1e1;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    z-index: 1000;
 }
 
 .logo {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 35px;
-    padding-left: 15px;
+    color: #222;
+}
+
+.menu-button {
+    margin-left: 25px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #222;
+    color: white;
+    border-radius: 7px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background: #444;
+}
+
+.sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 230px;
+    height: calc(100vh - 65px);
+    background: #222;
+    border-right: 1px solid #111;
+    padding: 25px 15px;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+}
+
+.sidebar.active {
+    transform: translateX(0);
 }
 
 .sidebar a {
     display: block;
-    color: #ddd;
+    color: white;
     text-decoration: none;
     padding: 13px 15px;
-    margin-bottom: 5px;
-    border-radius: 6px;
+    margin-bottom: 8px;
+    border-radius: 7px;
 }
 
 .sidebar a:hover {
-    background: #333;
+    background: #444;
     color: white;
-    padding-left: 22px;
 }
 
 .main {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    padding-top: 0;
+    transition: margin-left 0.25s ease,
+                width 0.25s ease;
+}
+
+.sidebar.active ~ .main {
     margin-left: 230px;
     width: calc(100% - 230px);
-    min-width: 0;
 }
 
 .topbar {
@@ -97,6 +134,7 @@ button {
     padding: 0 25px;
 }
 
+
 /* Buttons */
 
 .create-button,
@@ -113,8 +151,10 @@ button {
     border-radius: 7px;
     font-size: 14px;
     font-weight: bold;
-    transition: background 0.2s ease, color 0.2s ease,
-                border-color 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
 }
 
 .create-button {
@@ -156,6 +196,7 @@ button {
     transform: translateY(-2px);
 }
 
+
 /* Search */
 
 .search-box {
@@ -195,6 +236,7 @@ button {
 .search-box button:hover {
     background: #444;
 }
+
 
 /* Task List */
 
@@ -279,6 +321,7 @@ button {
     border: 1px solid #e1e1e1;
 }
 
+
 /* Badges */
 
 .badge {
@@ -341,6 +384,7 @@ button {
     font-size: 14px;
     color: #555;
 }
+
 
 /* Task Details */
 
@@ -426,6 +470,7 @@ button {
     color: #777;
 }
 
+
 /* Section Headings */
 
 .section-heading {
@@ -460,6 +505,7 @@ button {
     color: #888;
     padding: 10px 0;
 }
+
 
 /* Subtasks */
 
@@ -507,6 +553,7 @@ button {
     gap: 10px;
     flex-wrap: wrap;
 }
+
 
 /* Notes */
 
@@ -559,6 +606,7 @@ button {
     border-radius: 8px;
     text-decoration: none;
 }
+
 
 /* Forms */
 
@@ -682,6 +730,7 @@ button {
     transform: translateY(-2px);
 }
 
+
 /* Delete Page */
 
 .delete-page {
@@ -759,209 +808,8 @@ button {
     transform: translateY(-2px);
 }
 
-/* Tablet */
 
-@media (max-width: 700px) {
-    .sidebar {
-        width: 180px;
-    }
-
-    .main {
-        margin-left: 180px;
-        width: calc(100% - 180px);
-    }
-
-    .topbar {
-        padding: 15px;
-    }
-
-    .content {
-        padding: 0 15px;
-    }
-
-    .topbar h2 {
-        font-size: 18px;
-    }
-
-    .create-button {
-        padding: 9px 12px;
-        font-size: 14px;
-    }
-
-    .detail-card,
-    .section-card {
-        padding: 22px;
-    }
-
-    .form-card {
-        padding: 25px;
-    }
-
-    .delete-card {
-        padding: 30px;
-    }
-
-    .note-item {
-        gap: 15px;
-        padding: 20px;
-    }
-
-    .note-content p {
-        font-size: 16px;
-    }
-}
-
-/* Small Screens */
-
-@media (max-width: 600px) {
-    .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .section-heading-actions {
-        flex-wrap: wrap;
-    }
-
-    .subtask-item {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .subtask-actions {
-        width: 100%;
-    }
-
-    .note-item {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .note-actions {
-        justify-content: flex-start;
-    }
-
-    .detail-top {
-        align-items: flex-start;
-    }
-
-    .detail-actions {
-        flex-wrap: wrap;
-    }
-}
-
-/* Mobile */
-
-@media (max-width: 500px) {
-    .layout {
-        display: block;
-    }
-
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding: 18px 15px;
-    }
-
-    .sidebar a {
-        display: inline-block;
-        padding: 10px 12px;
-    }
-
-    .logo {
-        margin-bottom: 15px;
-    }
-
-    .main {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .topbar {
-        padding: 15px;
-        gap: 10px;
-    }
-
-    .topbar h2 {
-        font-size: 18px;
-    }
-
-    .content {
-        padding: 0 15px;
-        margin: 20px auto;
-    }
-
-    .search-box form {
-        flex-direction: column;
-    }
-
-    .search-box button {
-        width: 100%;
-    }
-
-    .task-card {
-        padding: 18px;
-    }
-
-    .task-info {
-        gap: 12px;
-    }
-
-    .detail-card,
-    .section-card {
-        padding: 20px;
-    }
-
-    .detail-heading h1 {
-        font-size: 24px;
-    }
-
-    .detail-actions {
-        width: 100%;
-    }
-
-    .form-card {
-        padding: 22px;
-    }
-
-    .form-heading h1 {
-        font-size: 24px;
-    }
-
-    .form-actions,
-    .delete-actions {
-        flex-direction: column-reverse;
-        align-items: stretch;
-    }
-
-    .form-actions .form-cancel,
-    .form-actions .form-submit,
-    .delete-actions .form-cancel,
-    .delete-actions .delete-confirm {
-        width: 100%;
-    }
-
-    .delete-page {
-        margin: 20px auto;
-    }
-
-    .delete-card {
-        padding: 25px 18px;
-    }
-
-    .delete-card h1 {
-        font-size: 24px;
-    }
-
-    .note-item {
-        padding: 18px;
-    }
-
-    .note-actions a {
-        flex: 1;
-    }
-}
+/* Dashboard */
 
 .stats-grid {
     display: grid;
@@ -1005,6 +853,7 @@ button {
     border-left: 5px solid #10b981;
 }
 
+
 /* Dashboard Sections */
 
 .dashboard-section {
@@ -1036,6 +885,7 @@ button {
     font-weight: 600;
     white-space: nowrap;
 }
+
 
 /* Dashboard Table */
 
@@ -1075,6 +925,7 @@ button {
     font-weight: 600;
 }
 
+
 /* Status Badges */
 
 .status {
@@ -1100,6 +951,7 @@ button {
     background: #d1fae5;
     color: #065f46;
 }
+
 
 /* Upcoming Deadlines */
 
@@ -1144,46 +996,6 @@ button {
     text-align: center;
 }
 
-/* Responsive Dashboard */
-
-@media (max-width: 1000px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 600px) {
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    .stat-card {
-        padding: 18px;
-    }
-
-    .stat-card h2 {
-        font-size: 26px;
-    }
-
-    .dashboard-section {
-        padding: 15px;
-    }
-
-    .section-header h3 {
-        font-size: 18px;
-    }
-
-    .deadline-item {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .table-wrapper th,
-    .table-wrapper td {
-        padding: 12px;
-    }
-}
 
 /* Login Page */
 
@@ -1303,6 +1115,7 @@ button {
     color: #222;
 }
 
+
 /* Profile Dropdown */
 
 .profile-dropdown {
@@ -1369,30 +1182,16 @@ button {
     background: #f4f6f8;
 }
 
-/* Login Mobile */
-
-@media (max-width: 500px) {
-
-    .login-card {
-        width: auto;
-        padding: 35px 25px;
-    }
-
-    .login-logo {
-        font-size: 28px;
-    }
-
-    .login-card h1 {
-        font-size: 23px;
-    }
-
-    .profile-button {
-        max-width: 180px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+.login-provider {
+    padding: 12px 15px;
+    font-size: 13px;
+    color: #777;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
 }
+
+
+/* Task List Header */
 
 .task-list-header {
     display: flex;
@@ -1421,3 +1220,285 @@ button {
     color: white;
     transform: translateY(-2px);
 }
+
+
+/* Tablet */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .sidebar.active ~ .main {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .topbar {
+        padding: 15px;
+    }
+
+    .content {
+        padding: 0 15px;
+    }
+
+    .topbar h2 {
+        font-size: 18px;
+    }
+
+    .create-button {
+        padding: 9px 12px;
+        font-size: 14px;
+    }
+
+    .detail-card,
+    .section-card {
+        padding: 22px;
+    }
+
+    .form-card {
+        padding: 25px;
+    }
+
+    .delete-card {
+        padding: 30px;
+    }
+
+    .note-item {
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .note-content p {
+        font-size: 16px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* Small Screens */
+
+@media (max-width: 600px) {
+
+    .site-header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .menu-button {
+        margin-left: 15px;
+    }
+
+    .content {
+        margin: 20px auto;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .section-heading-actions {
+        flex-wrap: wrap;
+    }
+
+    .subtask-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .subtask-actions {
+        width: 100%;
+    }
+
+    .note-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .note-actions {
+        justify-content: flex-start;
+    }
+
+    .detail-top {
+        align-items: flex-start;
+    }
+
+    .detail-actions {
+        flex-wrap: wrap;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .stat-card h2 {
+        font-size: 26px;
+    }
+
+    .dashboard-section {
+        padding: 15px;
+    }
+
+    .section-header h3 {
+        font-size: 18px;
+    }
+
+    .deadline-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .table-wrapper th,
+    .table-wrapper td {
+        padding: 12px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 500px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar.active ~ .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .topbar {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .topbar h2 {
+        font-size: 18px;
+    }
+
+    .content {
+        padding: 0 15px;
+        margin: 20px auto;
+    }
+
+    .search-box form {
+        flex-direction: column;
+    }
+
+    .search-box button {
+        width: 100%;
+    }
+
+    .task-card {
+        padding: 18px;
+    }
+
+    .task-info {
+        gap: 12px;
+    }
+
+    .task-list-header {
+        gap: 15px;
+    }
+
+    .task-list-header h1 {
+        font-size: 24px;
+    }
+
+    .create-task-button {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .detail-card,
+    .section-card {
+        padding: 20px;
+    }
+
+    .detail-heading h1 {
+        font-size: 24px;
+    }
+
+    .detail-actions {
+        width: 100%;
+    }
+
+    .form-card {
+        padding: 22px;
+    }
+
+    .form-heading h1 {
+        font-size: 24px;
+    }
+
+    .form-actions,
+    .delete-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-actions .form-cancel,
+    .form-actions .form-submit,
+    .delete-actions .form-cancel,
+    .delete-actions .delete-confirm {
+        width: 100%;
+    }
+
+    .delete-page {
+        margin: 20px auto;
+    }
+
+    .delete-card {
+        padding: 25px 18px;
+    }
+
+    .delete-card h1 {
+        font-size: 24px;
+    }
+
+    .note-item {
+        padding: 18px;
+    }
+
+    .note-actions a {
+        flex: 1;
+    }
+
+    .login-card {
+        width: auto;
+        padding: 35px 25px;
+    }
+
+    .login-logo {
+        font-size: 28px;
+    }
+
+    .login-card h1 {
+        font-size: 23px;
+    }
+
+    .profile-button {
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+}
+
