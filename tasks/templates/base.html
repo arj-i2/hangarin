@@ -142,16 +142,30 @@
     }
 
 
-    const menuButton = document.querySelector(".menu-button");
-    const sidebar = document.querySelector(".sidebar");
+   const menuButton = document.querySelector(".menu-button");
+const sidebar = document.querySelector(".sidebar");
+const main = document.querySelector(".main");
 
-    if (menuButton && sidebar) {
+if (menuButton && sidebar) {
 
-        menuButton.addEventListener("click", function () {
-            sidebar.classList.toggle("active");
+    menuButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        sidebar.classList.toggle("active");
+    });
+
+    sidebar.addEventListener("click", function (event) {
+        if (event.target.closest("a")) {
+            sidebar.classList.remove("active");
+        }
+    });
+
+    if (main) {
+        main.addEventListener("click", function () {
+            sidebar.classList.remove("active");
         });
-
     }
+
+}
 
 </script>
 
