@@ -1,5 +1,7 @@
-
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 from django.urls import path
+from django.views import View
 from .views import (
     DashboardView,
     TaskListView,
@@ -15,8 +17,14 @@ from .views import (
     NoteDeleteView,
 )
 
+class LandingView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("account_login")
+
 urlpatterns = [
-    path("", DashboardView.as_view(), name="dashboard"),
+    path("", LandingView.as_view(), name="landing"),
+    path("dashboard/", DashboardView.as_view(), name="dashboard"),
 
     path("tasks/", TaskListView.as_view(), name="task-list"),
     path("task/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
