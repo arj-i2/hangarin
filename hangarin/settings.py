@@ -25,8 +25,15 @@ SECRET_KEY = 'django-insecure-dpzzd2@h@3c^+1&=f4*f89s=_+5)jlxz(rh(l78l9m8jybaqzk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'arji2.pythonanywhere.com',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://arji2.pythonanywhere.com',
+]
 
 # Application definition
 
@@ -124,7 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
