@@ -1,4 +1,4 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}My Tasks - Hangarin{% endblock %}
 
@@ -28,24 +28,62 @@
 
         <div class="task-info">
 
-            <span class="badge status-badge">
-                {{ task.status }}
-            </span>
+            {% if task.status == "Pending" %}
+                <span class="status-badge status-pending">
+                    {{ task.status }}
+                </span>
 
-            <span class="badge priority-badge">
-                {{ task.priority|title }}
-            </span>
+            {% elif task.status == "In Progress" %}
+                <span class="status-badge status-progress">
+                    {{ task.status }}
+                </span>
+
+            {% elif task.status == "Completed" %}
+                <span class="status-badge status-completed">
+                    {{ task.status }}
+                </span>
+            {% endif %}
+
+            {% if task.priority|lower == "low" %}
+                <span class="priority-badge priority-low">
+                    {{ task.priority|title }}
+                </span>
+
+            {% elif task.priority|lower == "medium" %}
+                <span class="priority-badge priority-medium">
+                    {{ task.priority|title }}
+                </span>
+
+            {% elif task.priority|lower == "high" %}
+                <span class="priority-badge priority-high">
+                    {{ task.priority|title }}
+                </span>
+
+            {% elif task.priority|lower == "critical" %}
+                <span class="priority-badge priority-critical">
+                    {{ task.priority|title }}
+                </span>
+
+            {% elif task.priority|lower == "optional" %}
+                <span class="priority-badge priority-optional">
+                    {{ task.priority|title }}
+                </span>
+
+            {% else %}
+                <span class="priority-badge">
+                    {{ task.priority|title }}
+                </span>
+            {% endif %}
 
             <span class="category">
                 {{ task.category }}
             </span>
 
-
         </div>
 
         <div class="task-deadline">
-            <strong>Deadline:</strong> {{ task.deadline }}
-
+            <strong>Deadline:</strong>
+            {{ task.deadline }}
         </div>
 
         <div class="task-actions">

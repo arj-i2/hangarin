@@ -1,0 +1,42 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Hangarin</title>
+
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+</head>
+
+<body class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            Hangarin
+        </div>
+
+        <h1>Welcome Back!</h1>
+
+        <p class="login-subtitle">
+            Sign in to manage your tasks.
+        </p>
+
+        <a href="{% provider_login_url 'google' %}" class="google-login">
+            <span class="google-icon">G</span>
+            Continue with Google
+        </a>
+
+        <a href="{% provider_login_url 'github' %}" class="github-login">
+            <span class="github-icon">GH</span>
+            Continue with GitHub
+        </a>
+
+    </div>
+
+</body>
+</html>

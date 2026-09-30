@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Hangarin{% endblock %}
+{% block header %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <div class="dashboard-welcome">
+        <div>
+            <h1>Welcome to Hangarin</h1>
+            <p>Manage your tasks and stay organized.</p>
+        </div>
+
+        <a href="{% url 'task-create' %}" class="create-button">
+            + New Task
+        </a>
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card total">
+            <p>Total Tasks</p>
+            <h2>{{ total_tasks }}</h2>
+        </div>
+
+        <div class="stat-card pending">
+            <p>Pending</p>
+            <h2>{{ pending_tasks }}</h2>
+        </div>
+
+        <div class="stat-card progress">
+            <p>In Progress</p>
+            <h2>{{ in_progress_tasks }}</h2>
+        </div>
+
+        <div class="stat-card completed">
+            <p>Completed</p>
+            <h2>{{ completed_tasks }}</h2>
+        </div>
+
+    </div>
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h3>Recent Tasks</h3>
+            <a href="{% url 'task-list' %}">View All</a>
+        </div>
+
+        {% if recent_tasks %}
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Deadline</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for task in recent_tasks %}
+
+                    <tr>
+
+                        <td>
+                            {{ task.title }}
+                        </td>
+
+                        <td>
+                            {% if task.status == "Pending" %}
+                                <span class="status status-pending">
+                                    {{ task.status }}
+                                </span>
+
+                            {% elif task.status == "In Progress" %}
+                                <span class="status status-progress">
+                                    {{ task.status }}
+                                </span>
+
+                            {% elif task.status == "Completed" %}
+                                <span class="status status-completed">
+                                    {{ task.status }}
+                                </span>
+
+                            {% else %}
+                                <span class="status">
+                                    {{ task.status }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if task.priority|lower == "low" %}
+                                <span class="priority-badge priority-low">
+                                    {{ task.priority }}
+                                </span>
+
+                            {% elif task.priority|lower == "medium" %}
+                                <span class="priority-badge priority-medium">
+                                    {{ task.priority }}
+                                </span>
+
+                            {% elif task.priority|lower == "high" %}
+                                <span class="priority-badge priority-high">
+                                    {{ task.priority }}
+                                </span>
+
+                            {% elif task.priority|lower == "critical" %}
+                                <span class="priority-badge priority-critical">
+                                    {{ task.priority }}
+                                </span>
+
+                            {% elif task.priority|lower == "optional" %}
+                                <span class="priority-badge priority-optional">
+                                    {{ task.priority }}
+                                </span>
+
+                            {% else %}
+                                <span class="priority-badge">
+                                    {{ task.priority }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if task.deadline %}
+                                {{ task.deadline|date:"M d, Y" }}
+                            {% else %}
+                                No deadline
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'task-detail' task.pk %}">
+                                View
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+            <p class="empty-message">
+                No tasks yet. Create your first task!
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h3>Upcoming Deadlines</h3>
+        </div>
+
+        {% if upcoming_tasks %}
+
+        <div class="deadline-list">
+
+            {% for task in upcoming_tasks %}
+
+            <div class="deadline-item">
+
+                <div>
+                    <h4>{{ task.title }}</h4>
+                    <p>{{ task.status }}</p>
+                </div>
+
+                <span>
+                    {% if task.deadline %}
+                        {{ task.deadline|date:"M d, Y" }}
+                    {% else %}
+                        No deadline
+                    {% endif %}
+                </span>
+
+                <a href="{% url 'task-detail' task.pk %}">
+                    View Task
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+            <p class="empty-message">
+                No upcoming deadlines.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

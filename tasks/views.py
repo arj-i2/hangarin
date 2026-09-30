@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Task, SubTask, Note
+from django.views.generic import TemplateView
+from django.utils import timezone
 
 
 class TaskListView(ListView):
@@ -129,3 +131,38 @@ class NoteDeleteView(DeleteView):
             "task-detail",
             kwargs={"pk": self.object.task_id}
         )
+
+class DashboardView(TemplateView):
+    template_name = "tasks/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        tasks = Task.objects.all()
+        today = timezone.localdate()
+
+        context["total_tasks"] = tasks.count()
+
+        context["pending_tasks"] = tasks.filter(
+            status="Pending"
+        ).count()
+
+        context["in_progress_tasks"] = tasks.filter(
+            status="In Progress"
+        ).count()
+
+        context["completed_tasks"] = tasks.filter(
+            status="Completed"
+        ).count()
+
+        context["recent_tasks"] = tasks.order_by(
+            "-created_at"
+        )[:5]
+
+        context["upcoming_tasks"] = tasks.filter(
+            deadline__date__gte=today
+        ).exclude(
+            status="Completed"
+        ).order_by("deadline")[:5]
+
+        return context

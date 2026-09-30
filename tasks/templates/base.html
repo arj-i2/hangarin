@@ -16,8 +16,8 @@
 
     <aside class="sidebar">
         <div class="logo">Hangarin</div>
-
-        <a href="{% url 'task-list' %}">Dashboard</a>
+        
+        <a href="{% url 'dashboard' %}">Dashboard</a>
         <a href="{% url 'task-list' %}">Tasks</a>
     </aside>
 
@@ -26,9 +26,21 @@
         <header class="topbar">
             <h2>{% block header %}My Tasks{% endblock %}</h2>
 
-            <a href="{% url 'task-create' %}" class="create-button">
-                + Create Task
-            </a>
+            {% if user.is_authenticated %}
+            <div class="profile-dropdown">
+                <button class="profile-button" type="button">
+                    {{ user.email }} <span>▼</span>
+                </button>
+
+                <div class="profile-menu">
+                    <form action="{% url 'account_logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
         </header>
 
         <section class="content">
@@ -54,6 +66,23 @@
     </main>
 
 </div>
+
+<script>
+    const profileButton = document.querySelector(".profile-button");
+    const profileDropdown = document.querySelector(".profile-dropdown");
+
+    if (profileButton) {
+        profileButton.addEventListener("click", function () {
+            profileDropdown.classList.toggle("active");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!profileDropdown.contains(event.target)) {
+                profileDropdown.classList.remove("active");
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
