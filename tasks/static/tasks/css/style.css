@@ -41,6 +41,7 @@ select {
     border-bottom: 1px solid #e1e1e1;
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
     padding: 0 25px;
     z-index: 1000;
 }
@@ -1375,13 +1376,115 @@ select {
 
 @media (max-width: 500px) {
 
-    .sidebar {
-        width: 220px;
-    }
-
     .site-header {
+        height: 65px;
+        width: 100%;
         padding: 0 10px;
         gap: 8px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow: visible;
+    }
+
+    .logo {
+        flex: 1 1 auto;
+        min-width: 0;
+        margin: 0;
+        font-size: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .menu-button {
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .profile-dropdown {
+        position: relative;
+        flex: 0 0 42px;
+        width: 42px;
+        margin-left: 0;
+    }
+
+    .profile-button {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        font-size: 0;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .profile-button::before {
+        content: "👤";
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .profile-button span {
+        display: none;
+    }
+
+    .profile-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        left: auto;
+        width: 190px;
+        max-width: calc(100vw - 20px);
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    .profile-dropdown.active .profile-menu {
+        display: block;
+    }
+
+    .profile-menu form {
+        width: 100%;
+        margin: 0;
+    }
+
+    .profile-menu form button,
+    .profile-menu button {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 15px;
+        background: white;
+        color: #222;
+        border: none;
+        text-align: left;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .profile-menu button:hover {
+        background: #f4f6f8;
+    }
+
+    .profile-menu .login-provider {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sidebar {
+        width: 220px;
     }
 
     .sidebar.active ~ .main {
@@ -1499,47 +1602,4 @@ select {
         font-size: 23px;
     }
 
-    .profile-button {
-        max-width: 180px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-        .profile-menu {
-        right: 0;
-        left: auto;
-        width: 190px;
-        max-width: calc(100vw - 20px);
-    }
-
-    .profile-menu form button {
-        width: 100%;
-        text-align: left;
-        padding: 12px 15px;
-    }
-    .menu-button {
-        flex-shrink: 0;
-    }
-
-    .logo {
-        font-size: 20px;
-        white-space: nowrap;
-    }
-
-    .profile-dropdown {
-        margin-left: auto;
-        flex-shrink: 0;
-    }
-
-    .profile-button {
-        max-width: 120px;
-        padding: 8px 10px;
-        font-size: 12px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
 }
-
