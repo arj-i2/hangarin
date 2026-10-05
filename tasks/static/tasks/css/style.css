@@ -1603,3 +1603,29 @@ select {
     }
 
 }
+.login-header-button {
+    margin-left: auto;
+    padding: 9px 16px;
+    background: #222;
+    color: white;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-header-button:hover {
+    background: #444;
+    color: white;
+}
+
+@media (max-width: 500px) {
+
+    .login-header-button {
+        margin-left: auto;
+        padding: 9px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+}

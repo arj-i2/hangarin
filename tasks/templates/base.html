@@ -26,7 +26,7 @@
 
         {% if user.is_authenticated %}
 
-            <div class="profile-dropdown">
+        <div class="profile-dropdown">
 
             <button class="profile-button" type="button">
                 {{ user.email }} <span>▼</span>
@@ -34,40 +34,23 @@
 
             <div class="profile-menu">
 
-            {% get_social_accounts user as accounts %}
+                {% get_social_accounts user as accounts %}
 
-            {% if accounts %}
-            {% for account in accounts %}
+                {% if accounts %}
+                    {% for account in accounts %}
 
-                {% if account.provider == "google" %}
-                    <div class="login-provider">
-                        Logged in with Google
-                    </div>
-                {% elif account.provider == "github" %}
-                    <div class="login-provider">
-                        Logged in with GitHub
-                    </div>
+                        {% if account.provider == "google" %}
+                            <div class="login-provider">
+                                Logged in with Google
+                            </div>
+                        {% elif account.provider == "github" %}
+                            <div class="login-provider">
+                                Logged in with GitHub
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
                 {% endif %}
-
-            {% endfor %}
-        {% endif %}
-
-        <form action="{% url 'account_logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-
-    </div>
-
-</div>
-
-{% else %}
-
-<a href="{% url 'account_login' %}" class="login-header-button">
-    Log In
-</a>
-
-        {% endif %}
 
                 <form action="{% url 'account_logout' %}" method="post">
                     {% csrf_token %}
@@ -77,6 +60,13 @@
             </div>
 
         </div>
+
+        {% else %}
+
+        <a href="{% url 'account_login' %}" class="login-header-button">
+            Log In
+        </a>
+
         {% endif %}
 
     </div>
@@ -160,30 +150,34 @@
     }
 
 
-   const menuButton = document.querySelector(".menu-button");
-const sidebar = document.querySelector(".sidebar");
-const main = document.querySelector(".main");
+    const menuButton = document.querySelector(".menu-button");
+    const sidebar = document.querySelector(".sidebar");
+    const main = document.querySelector(".main");
 
-if (menuButton && sidebar) {
+    if (menuButton && sidebar) {
 
-    menuButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        sidebar.classList.toggle("active");
-    });
-
-    sidebar.addEventListener("click", function (event) {
-        if (event.target.closest("a")) {
-            sidebar.classList.remove("active");
-        }
-    });
-
-    if (main) {
-        main.addEventListener("click", function () {
-            sidebar.classList.remove("active");
+        menuButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            sidebar.classList.toggle("active");
         });
-    }
 
-}
+        sidebar.addEventListener("click", function (event) {
+
+            if (event.target.closest("a")) {
+                sidebar.classList.remove("active");
+            }
+
+        });
+
+        if (main) {
+
+            main.addEventListener("click", function () {
+                sidebar.classList.remove("active");
+            });
+
+        }
+
+    }
 
 </script>
 
