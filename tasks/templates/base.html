@@ -25,7 +25,8 @@
         </button>
 
         {% if user.is_authenticated %}
-        <div class="profile-dropdown">
+
+            <div class="profile-dropdown">
 
             <button class="profile-button" type="button">
                 {{ user.email }} <span>▼</span>
@@ -33,23 +34,40 @@
 
             <div class="profile-menu">
 
-                {% get_social_accounts user as accounts %}
+            {% get_social_accounts user as accounts %}
 
-                {% if accounts %}
-                    {% for account in accounts %}
+            {% if accounts %}
+            {% for account in accounts %}
 
-                        {% if account.provider == "google" %}
-                            <div class="login-provider">
-                                Logged in with Google
-                            </div>
-                        {% elif account.provider == "github" %}
-                            <div class="login-provider">
-                                Logged in with GitHub
-                            </div>
-                        {% endif %}
-
-                    {% endfor %}
+                {% if account.provider == "google" %}
+                    <div class="login-provider">
+                        Logged in with Google
+                    </div>
+                {% elif account.provider == "github" %}
+                    <div class="login-provider">
+                        Logged in with GitHub
+                    </div>
                 {% endif %}
+
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'account_logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<a href="{% url 'account_login' %}" class="login-header-button">
+    Log In
+</a>
+
+        {% endif %}
 
                 <form action="{% url 'account_logout' %}" method="post">
                     {% csrf_token %}
