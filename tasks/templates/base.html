@@ -10,7 +10,12 @@
     <title>{% block title %}Hangarin{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
-</head>
+
+    <link rel="manifest" href="{% url 'pwa:manifest' %}">
+    <meta name="theme-color" content="#222222">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Hangarin">
+    </head>
 
 <body>
 
@@ -180,6 +185,18 @@
     }
 
 </script>
-
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+            navigator.serviceWorker.register("/pwa/serviceworker.js")
+                .then(function (registration) {
+                    console.log("Hangarin service worker registered:", registration.scope);
+                })
+                .catch(function (error) {
+                    console.error("Service worker registration failed:", error);
+                });
+        });
+    }
+</script>
 </body>
 </html>

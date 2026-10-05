@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     
     'tasks',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +156,43 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 SOCIALACCOUNT_LOGIN_ON_GET = False
+
+PWA_APP_NAME = 'Hangarin'
+PWA_APP_DESCRIPTION = 'Hangarin Task Manager'
+PWA_APP_THEME_COLOR = '#222222'
+PWA_APP_BACKGROUND_COLOR = '#f4f6f8'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/dashboard/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+
+PWA_APP_ICONS = [
+    {
+        'src': '/static/tasks/icons/icon-192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/tasks/icons/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/tasks/icons/icon-192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/tasks/icons/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+
+PWA_APP_DIR = 'ltr'
+PWA_SERVICE_WORKER_PATH = os.path.join(
+    BASE_DIR,
+    'static',
+    'js',
+    'serviceworker.js'
+)
